@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Formateador de texto para LinkedIN 100% gratuito, sin login ni costes."
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <meta name="author" content="Inled Group" />
+    <script src="js/toUnicodeVariant.min.js"></script>
+    <title>InLinked</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="estilos.css" rel="stylesheet" />
+    
+    <style>
+
+    </style>
+  </head>
+  <body class="d-flex flex-column h-100">
+
+    <script>
+            function updateText(variant, flag) {
+              var el = document.getElementById("linkedin-post-editor");
+              replaceSelectedText(
+                el,
+                toUnicodeVariant(getSeledtedText(), variant, flag)
+              );
+              gtag('event', 'Text Formatted (Free)', {
+                    'variant': variant,
+                    'flag': flag
+              });
+            }
+
+            function getInputSelection(el) {
+              var start = 0,
+                end = 0,
+                normalizedValue,
+                range,
+                textInputRange,
+                len,
+                endRange;
+
+              if (
+                typeof el.selectionStart == "number" &&
+                typeof el.selectionEnd == "number"
+              ) {
+                start = el.selectionStart;
+                end = el.selectionEnd;
+              } else {
+                range = document.selection.createRange();
+
+                if (range && range.parentElement() == el) {
+                  len = el.value.length;
+                  normalizedValue = el.value.replace(/\r\n/g, "\n");
+
+                  // Create a working TextRange that lives only in the input
+                  textInputRange = el.createTextRange();
+                  textInputRange.moveToBookmark(range.getBookmark());
+
+                  // Check if the start and end of the selection are at the very end
+                  // of the input, since moveStart/moveEnd doesn't return what we want
+                  // in those cases
+                  endRange = el.createTextRange();
+                  endRange.collapse(false);
+
+                  if (
+                    textInputRange.compareEndPoints("StartToEnd", endRange) > -1
+                  ) {
+                    start = end = len;
+                  } else {
+                    start = -textInputRange.moveStart("character", -len);
+                    start +=
+                      normalizedValue.slice(0, start).split("\n").length - 1;
+
+                    if (
+                      textInputRange.compareEndPoints("EndToEnd", endRange) > -1
+                    ) {
+                      end = len;
+                    } else {
+                      end = -textInputRange.moveEnd("character", -len);
+                      end +=
+                        normalizedValue.slice(0, end).split("\n").length - 1;
+                    }
+                  }
+                }
+              }
+
+              return {
+                start: start,
+                end: end,
+              };
+            }
+
+            function replaceSelectedText(el, text) {
+              var sel = getInputSelection(el),
+                val = el.value;
+              el.value = val.slice(0, sel.start) + text + val.slice(sel.end);
+            }
+
+            function getSeledtedText() {
+              var textComponent = document.getElementById(
+                "linkedin-post-editor"
+              );
+              var selectedText;
+
+              if (textComponent.selectionStart !== undefined) {
+                // Standards-compliant version
+                var startPos = textComponent.selectionStart;
+                var endPos = textComponent.selectionEnd;
+                selectedText = textComponent.value.substring(startPos, endPos);
+              } else if (document.selection !== undefined) {
+                // Internet Explorer version
+                textComponent.focus();
+                var sel = document.selection.createRange();
+                selectedText = sel.text;
+              }
+
+              return selectedText;
+            }
+
+            function copyToClipboard() {
+                // Get the text field
+                var copyText = document.getElementById("linkedin-post-editor");
+
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.value);
+                const box = document.getElementById('success-float');
+                box.style.visibility = 'visible';
+                console.log("should be visible");
+                setTimeout(() => {
+                    const box = document.getElementById('success-float');
+                    // 👇️ removes element from DOM
+                    //box.style.display = 'none';
+                    // 👇️ hides element (still takes up space on page)
+                    box.style.visibility = 'hidden';
+                    console.log("should be invisible");
+                    }, 3000); // 👈️ time in milliseconds
+                    gtag('event', 'Copy to Clipboard - Text Formatter (Free)');
+            }
+          </script>
+          <div class="header">
+            <img src="INLINKED.png" style="width: auto; height: 25px;">
+            <h1>InLinked</h1>
+            <div class="header-info">
+                <span>Formatea texto para LinkedIN</span>
+            </div>
+        </div>
+
+    <main class="flex-shrink-0">
+  
+
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <h1 class="hero-title">
+          InLinked
+        </h1>
+        <p class="hero-subtitle">
+          Formatea texto para post de LinkedIN. Gratis, privado y sin registro.
+        </p>
+      </div>
+
+      <!-- Main Formatter Section -->
+      <section class="py-0">
+        <div class="container px-5">
+          <div class="row gx-5 justify-content-center">
+            <div class="col-12">
+              <div class="format-container">
+                <!-- Success Message -->
+                <div style="width: 100%; text-align: center; margin-bottom: 20px;">
+                  <div class="alert alert-success" style="width: 300px; margin: 0 auto; visibility: hidden;" id="success-float" role="alert">
+                    Copied to clipboard!
+                  </div>
+                </div>
+
+                <!-- LinkedIn Style Editor -->
+                <div style="max-width: 600px; margin: 0 auto;">
+                  <div class="linkedin-header">
+                    <div class="linkedin-icon">in</div>
+                    <span style="font-weight: 600;">InLinked</span>
+                  </div>
+                  <textarea
+                    id="linkedin-post-editor"
+                    name="linkedin-post-editor"
+                    placeholder="Escribe tu post de LinkedIN aquí..."
+                  ></textarea>
+                </div>
+
+                <!-- Format Buttons -->
+                <div class="format-buttons">
+                  <a class="format-btn" onclick="updateText('b');" style="font-weight: bold;">
+                    𝐍𝐞𝐠𝐫𝐢𝐭𝐚
+                  </a>
+                  <a class="format-btn" onclick="updateText('i');" style="font-style: italic;">
+                    𝐶𝑢𝑟𝑠𝑖𝑣𝑎
+                  </a>
+                  <a class="format-btn" onclick="updateText('bi');" style="font-weight: bold; font-style: italic;">
+                    𝑵𝒆𝒈𝒓𝒊𝒕𝒂+𝑪𝒖𝒓𝒔𝒊𝒗𝒂
+                  </a>
+                  <a class="format-btn" onclick="updateText(null,'underline');" style="text-decoration: underline;">
+                    𝚂̲𝚞̲𝚋̲𝚛̲𝚊̲𝚢̲𝚊̲𝚍̲𝚘̲
+                  </a>
+                  <a class="format-btn" onclick="updateText(null,'strike');" style="text-decoration: line-through;">
+                    𝚃̶𝚊̶𝚌̶𝚑̶𝚊̶𝚍̶𝚘̶
+                  </a>
+                  <a class="format-btn" id="monospace" onclick="updateText('m');">
+                    <script>
+                      document.getElementById('monospace').innerHTML = 'Monospace'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="script-font" onclick="updateText('c');">
+                    <script>
+                      document.getElementById('script-font').innerHTML = 'Script'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="script-bold-font" onclick="updateText('bc');">
+                    <script>
+                      document.getElementById('script-bold-font').innerHTML = 'Bold Script'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="gothic-font" onclick="updateText('g');">
+                    <script>
+                      document.getElementById('gothic-font').innerHTML = 'Gothic'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="doublestruck-font" onclick="updateText('d');">
+                    <script>
+                      document.getElementById('doublestruck-font').innerHTML = 'Doublestruck'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="circled-font" onclick="updateText('o');">
+                    <script>
+                      document.getElementById('circled-font').innerHTML = 'Circled'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="circled-negative-font" onclick="updateText('on');">
+                    <script>
+                      document.getElementById('circled-negative-font').innerHTML = 'Circled Negative'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="squared-font" onclick="updateText('q');">
+                    <script>
+                      document.getElementById('squared-font').innerHTML = 'Squared'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="squared-negative-font" onclick="updateText('qn');">
+                    <script>
+                      document.getElementById('squared-negative-font').innerHTML = 'Squared Negative'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="paranthesis-font" onclick="updateText('p');">
+                    <script>
+                      document.getElementById('paranthesis-font').innerHTML = 'Parenthesis'
+                    </script>
+                  </a>
+                  <a class="format-btn" id="fullwidth-font" onclick="updateText('w');">
+                    <script>
+                      document.getElementById('fullwidth-font').innerHTML = 'Fullwidth'
+                    </script>
+                  </a>
+                </div>
+
+                <!-- Copy Button -->
+                <div style="text-align: center;">
+                  <button class="copy-btn" onclick="copyToClipboard();">
+                    Copiar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    
+    <!-- FAQ Section -->
+    <div class="container px-5">
+      <div class="faq-section">
+        <div class="text-center mb-5">
+          <h2 class="fs-2 fw-light" style="color: white;">Preguntas frecuentemente preguntadas :)</h2>
+        </div>
+        
+        <section class="mb-4">
+          <div class="faq-card">
+            <div class="card-body p-4">
+              <h3 class="faq-title mb-3">¿Por qué es necesario un formateador de etxto para LinkedIN?</h3>
+              <div class="faq-content">
+                <p>Por que LinkedIn no acepta texto formateado de un tipo diferente a su formateado propio</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-4">
+          <div class="faq-card">
+            <div class="card-body p-4">
+              <h3 class="faq-title mb-3">¿Como puede ser esto 100% gratis?</h3>
+              <div class="faq-content">
+                <p>En Inled estamos enfocados en el open-source y la libertad por lo que para usar esta herramienta no necesitas registrarte en ningún lado</p>
+              </div>
+            </div>
+          </div>
+        </section>
+</div>
+</div>
+</body>
