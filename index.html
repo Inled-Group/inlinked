@@ -34,13 +34,26 @@
 
     <link href="estilos.css" rel="stylesheet" />
     <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="ai.css">
 
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     
     <style>
-
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+      }
+      body {
+        /* Si hay un sidebar fijo, puede que necesites: */
+        /* overflow-y: scroll; */
+      }
+      main.flex-shrink-0 {
+        overflow: auto;
+      }
     </style>
   </head>
   <body class="d-flex flex-column h-100">
@@ -216,7 +229,7 @@
 
                 <!-- LinkedIn Style Editor -->
                 <div style="max-width: 600px; margin: 0 auto;">
-                  <div class="linkedin-header">
+                  <div class="linkedin-header" style="background-color: #0a66c2;">
                     <div class="linkedin-icon">in</div>
                     <span style="font-weight: 600;">InLinked</span>
                   </div>
@@ -239,10 +252,10 @@
                     𝑵𝒆𝒈𝒓𝒊𝒕𝒂+𝑪𝒖𝒓𝒔𝒊𝒗𝒂
                   </a>
                   <a class="format-btn" onclick="updateText(null,'underline');" style="text-decoration: underline;">
-                    𝚂̲𝚞̲𝚋̲𝚛̲𝚊̲𝚢̲𝚊̲𝚍̲𝚘̲
+                    𝚂̲𝚞̲𝚋̲𝚛̲𝚊̲𝚢̲𝚊̲𝚕̲𝚘̲
                   </a>
                   <a class="format-btn" onclick="updateText(null,'strike');" style="text-decoration: line-through;">
-                    𝚃̶𝚊̶𝚌̶𝚑̶𝚊̶𝚍̶𝚘̶
+                    𝚃̶𝚊̶𝚌̶𝚑̶𝚊̶𝚕̶𝚘̶
                   </a>
                   <a class="format-btn" id="monospace" onclick="updateText('m');">
                     <script>
@@ -307,6 +320,14 @@
                     Copiar
                   </button>
                 </div>
+
+                <!--Aquí está la IA de Inled. A lo mejor debería hacer más grande el icono pero se me descoloca todo-->
+                <div class="toolbar-group">
+                    <button class="format-btn" id="toggle-chat" title="Hablar con la inteligencia artificial de Inled." >
+                        <img src="inledai.svg" alt="logo Inled AI" class="ailogo">
+                        <span>Chat IA</span>
+                    </button>
+                </div>
               </div>
             </div>
           </div>
@@ -314,6 +335,43 @@
       </section>
 
     </main>
+
+        <!-- Panel del chat (ahora fuera del editor-container, como barra lateral) -->
+    <div class="chat-panel" id="chat-panel">
+        <div class="chat-header">
+            <h3><img src="inledai.svg" alt="logo Inled AI" class="ailogo"> Inled AI</h3>
+            <button class="chat-close" id="chat-close" style="color: black;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-status" id="chat-status">
+            <div class="loading-spinner"></div>
+            <span>Cargando modelo de IA...</span>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input-container">
+            <textarea 
+                id="chat-input" 
+                placeholder="Habla aquí con la IA..."
+                rows="3"
+                disabled
+            ></textarea>
+            <div class="chat-actions">
+                <button id="send-message" class="chat-btn primary" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar
+                </button>
+                <button id="insert-response" class="chat-btn secondary" disabled>
+                    <i class="fas fa-plus"></i>
+                    Insertar
+                </button>
+                <button id="copy-response" class="chat-btn secondary" disabled>
+                    <i class="fas fa-copy"></i>
+                    Copiar
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- FAQ Section -->
     <div class="container px-5">
@@ -346,3 +404,5 @@
 </div>
 </div>
 </body>
+<script src="/js/ai.js" module></script>
+</html>
