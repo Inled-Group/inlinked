@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inlinked | Formateador de texto para LinkedIN</title>
+    <meta name="description" content="Formatea texto para LinkedIN con IA" />
+    
+    <meta property="og:title" content="Inlinked | Formateador de texto para LinkedIN" />
+    <meta property="og:description" content="Formatea texto para LinkedIN con IA" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="stylesheet" href="/css/styles.new.css">
+
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="ai.css">
+    <script src="/js/new.ai.js" module></script>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+      }
+      body {
+        min-height: 100vh;
+        /* Si tienes sidebar fijo, puedes necesitar: */
+        /* overflow-y: scroll; */
+      }
+      .container {
+        min-height: 100vh;
+        overflow: auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+  <a href="https://insuite.inled.es" class="sidebar-item" style="text-decoration: none; color: white;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M240-200h120v-200q0-17 11.5-28.5T400-440h160q17 0 28.5 11.5T600-400v200h120v-360L480-740 240-560v360Zm-80 0v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H560q-17 0-28.5-11.5T520-160v-200h-80v200q0 17-11.5 28.5T400-120H240q-33 0-56.5-23.5T160-200Zm320-270Z"/></svg>
+  </a>
+  <a href="https://insuite.inled.es/apps" class="sidebar-item active" style="text-decoration: none; color: white;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z"/></svg>
+  </a>
+  <a href="https://insuite.inled.es/status" class="sidebar-item" style="text-decoration: none; color: white;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M260-160q-91 0-155.5-63T40-377q0-78 47-139t123-78q25-92 100-149t170-57q117 0 198.5 81.5T760-520q69 8 114.5 59.5T920-340q0 75-52.5 127.5T740-160H260Zm0-80h480q42 0 71-29t29-71q0-42-29-71t-71-29h-60v-80q0-83-58.5-141.5T480-720q-83 0-141.5 58.5T280-520h-20q-58 0-99 41t-41 99q0 58 41 99t99 41Zm220-240Z"/></svg>
+  </a>
+</div>
+
+<div class="header">
+            <img src="INLINKED.png" style="width: auto; height: 25px;">
+            <h1>InLinked</h1>
+            <div class="header-info">
+                <span>Formatea texto para LinkedIN</span>
+            </div>
+        </div>
+
+
+    <div class="container">
+
+        <main class="main">
+            <div class="format-buttons">
+                <button id="normalBtn" class="new-format-btn active" data-format="normal">
+                    Normal
+                </button>
+                <button id="boldBtn" class="new-format-btn" data-format="bold">
+                    𝗕𝗼𝗹𝗱
+                </button>
+                <button id="italicBtn" class="new-format-btn" data-format="italic">
+                    𝘐𝘵𝘢𝘭𝘪𝘤
+                </button>
+                <button id="boldItalicBtn" class="new-format-btn" data-format="bolditalic">
+                    𝙱𝚘𝚕𝚝 𝙸𝚝𝚊𝚕𝚒𝚌
+                </button>
+            </div>
+
+            <div class="editor-section">
+                <div class="editor-header">
+                    <label class="label">Escribe y formatea tu texto:</label>
+                    <button id="copyBtn" class="copy-btn">
+                        📋 Copiar
+                    </button>
+                <!--Aquí está la IA de Inled. A lo mejor debería hacer más grande el icono pero se me descoloca todo-->
+                    <button class="new-format-btn" id="toggle-chat" title="Hablar con la inteligencia artificial de Inled." >
+                        <img src="inledai.svg" alt="logo Inled AI" class="ailogo">
+                        <span>Chat IA</span>
+                    </button>
+                </div>
+                <div 
+                    id="textEditor" 
+                    class="text-editor" 
+                    contenteditable="true"
+                    data-placeholder="Escribe aquí y selecciona el formato para cada parte del texto..."
+                ></div>
+            </div>
+
+            <div class="info-section">
+                <h3>📝 Instrucciones:</h3>
+                <ul>
+                    <li>Escribe tu texto en el editor</li>
+                    <li>Selecciona el texto que quieres formatear</li>
+                    <li>Haz clic en el estilo que deseas aplicar</li>
+                    <li>Cada parte puede tener un formato diferente</li>
+                    <li>Copia el resultado y pégalo en LinkedIn</li>
+                </ul>
+            </div>
+        </main>
+        <div class="chat-panel" id="chat-panel">
+            <div class="chat-header">
+                <h3><img src="inledai.svg" alt="logo Inled AI" class="ailogo"> Inled AI</h3>
+                <button class="chat-close" id="chat-close" style="color: black;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-status" id="chat-status">
+                <div class="loading-spinner"></div>
+                <span>Cargando modelo de IA...</span>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-container">
+                <textarea 
+                    id="chat-input" 
+                    placeholder="Habla aquí con la IA..."
+                    rows="3"
+                    disabled
+                ></textarea>
+                <div class="chat-actions">
+                    <button id="send-message" class="chat-btn primary" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar
+                    </button>
+                    <button id="insert-response" class="chat-btn secondary" disabled>
+                        <i class="fas fa-plus"></i>
+                        Insertar
+                    </button>
+                    <button id="copy-response" class="chat-btn secondary" disabled>
+                        <i class="fas fa-copy"></i>
+                        Copiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Inled Group 2025. Licenciado bajo GNU GPLv3.0</p>
+        </footer>
+    </div>
+
+    <script src="/js/new.script.js"></script>
+</body>
+</html>
